@@ -13,7 +13,7 @@ namespace Usuario.Infra.IoC
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)

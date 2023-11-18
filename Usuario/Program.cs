@@ -19,6 +19,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.WeatherForecastEndpoints();
+app.AuthenticationEndpoints();
 
 app.Run();
