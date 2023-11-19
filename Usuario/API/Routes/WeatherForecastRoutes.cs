@@ -1,4 +1,5 @@
-﻿using Usuario.Domain.Services;
+﻿using System.Diagnostics;
+using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
 {
@@ -14,12 +15,29 @@ namespace Usuario.API.Routes
             .Produces(404)
             .Produces<int>(200)
             .WithName("GetWeatherForecast");
+
+            group.MapGet("/TestErrorMiddleware", TestErrorMiddleware);
         }
 
         private static IResult GetWeatherForecast(IWeatherForecastService service)
         {
             var weatherForecast = service.GetWeatherForecast();
             return Results.Ok(weatherForecast);
+        }
+
+        private static IResult TestErrorMiddleware()
+        {
+            try
+            {
+                throw new Exception();
+
+            }
+            catch (Exception e)
+            {
+
+                Debug.WriteLine(e.Message);
+                throw;
+            }
         }
     }
 }
