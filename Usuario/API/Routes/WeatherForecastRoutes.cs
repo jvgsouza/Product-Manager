@@ -1,4 +1,5 @@
-﻿using Usuario.Domain.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
 {
@@ -14,12 +15,30 @@ namespace Usuario.API.Routes
             .Produces(404)
             .Produces<int>(200)
             .WithName("GetWeatherForecast");
+
+            group.MapGet("/TestLog", TestLogGet)
+            .Produces(404)
+            .Produces<int>(200);
+
+            group.MapPost("/TestLog", TestLogPost)
+            .Produces(404)
+            .Produces<int>(200);
         }
 
         private static IResult GetWeatherForecast(IWeatherForecastService service)
         {
             var weatherForecast = service.GetWeatherForecast();
             return Results.Ok(weatherForecast);
+        }
+
+        private static IResult TestLogGet([FromQuery] string id)
+        {
+            return Results.Ok(id);
+        }
+
+        private static IResult TestLogPost([FromBody] string id)
+        {
+            return Results.Ok(id);
         }
     }
 }

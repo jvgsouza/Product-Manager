@@ -1,5 +1,6 @@
 using Usuario.API.Routes;
 using Usuario.Infra.IoC;
+using Usuario.Infra.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,5 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.WeatherForecastEndpoints();
+
+app.UseMiddleware(typeof(LogMiddleware));
 
 app.Run();
