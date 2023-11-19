@@ -1,8 +1,7 @@
-﻿namespace Usuario.Domain.Entities
+﻿namespace Usuario.Domain.DTOs
 {
-    public class User
+    public class Login
     {
-        public int id { get; set; }
         public string login { get; set; } = string.Empty;
         public string password { get; set; } = string.Empty;
     }

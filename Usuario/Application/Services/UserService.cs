@@ -1,13 +1,21 @@
-﻿using Usuario.Domain.Entities;
+﻿using Usuario.Domain.DTOs;
+using Usuario.Domain.Entities;
+using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
 
 namespace Usuario.Application.Services
 {
     public class UserService : IUserService
     {
-        public User Login()
+        private IUserRepository _userRepository;
+        public UserService(IUserRepository userRepository) 
+        { 
+            _userRepository = userRepository;
+        }
+
+        public User Login(Login login)
         {
-            throw new NotImplementedException();
+            return _userRepository.Login(login);
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using Usuario.Domain.DTOs;
 using Usuario.Domain.Entities;
 
-namespace Usuario.Domain.Services
+namespace Usuario.Domain.Repositories
 {
-    public interface IUserService
+    public interface IUserRepository
     {
         User Login(Login login);
     }

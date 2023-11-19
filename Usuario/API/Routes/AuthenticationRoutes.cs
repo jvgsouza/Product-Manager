@@ -1,4 +1,6 @@
-﻿using Usuario.Domain.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Usuario.Domain.DTOs;
+using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
 {
@@ -10,15 +12,14 @@ namespace Usuario.API.Routes
                 .WithTags("Authentication")
                 .WithOpenApi();
 
-            group.MapGet("/Login", Login)
+            group.MapPost("/Login", Login)
             .Produces(404)
-            .Produces<int>(200)
-            .WithName("GetWeatherForecast");
+            .Produces<int>(200);
         }
 
-        private static IResult Login(IUserService service)
+        private static IResult Login(IUserService service, [FromBody] Login login)
         {
-            var user = service.Login();
+            var user = service.Login(login);
             return Results.Ok(user);
         }
     }
