@@ -1,3 +1,4 @@
+using Usuario.API.Middleware;
 using Usuario.API.Routes;
 using Usuario.Application.IoC;
 using Usuario.Infra.IoC;
@@ -22,5 +23,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.AuthenticationEndpoints();
+
+app.UseMiddleware<LogMiddleware>();
+app.UseMiddleware<ErrorMiddleware>();
 
 app.Run();
