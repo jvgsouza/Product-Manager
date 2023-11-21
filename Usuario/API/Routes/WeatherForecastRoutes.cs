@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Usuario.Application.Exceptions;
 using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
@@ -27,17 +28,7 @@ namespace Usuario.API.Routes
 
         private static IResult TestErrorMiddleware()
         {
-            try
-            {
-                throw new Exception();
-
-            }
-            catch (Exception e)
-            {
-
-                Debug.WriteLine(e.Message);
-                throw;
-            }
+            throw new APIException("Testando endpoint de erro");
         }
     }
 }

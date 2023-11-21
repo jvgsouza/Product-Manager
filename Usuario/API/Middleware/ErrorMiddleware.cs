@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
+using Usuario.Application.Exceptions;
 
 namespace Usuario.API.Middleware
 {
@@ -27,6 +28,7 @@ namespace Usuario.API.Middleware
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = HttpStatusCode.InternalServerError;
+            if(exception is APIException) code = HttpStatusCode.BadRequest;
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
 
