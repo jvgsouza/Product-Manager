@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Usuario.Application.Exceptions;
 using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
@@ -23,6 +25,7 @@ namespace Usuario.API.Routes
             group.MapPost("/TestLog", TestLogPost)
             .Produces(404)
             .Produces<int>(200);
+            group.MapGet("/TestErrorMiddleware", TestErrorMiddleware);
         }
 
         private static IResult GetWeatherForecast(IWeatherForecastService service)
@@ -39,6 +42,11 @@ namespace Usuario.API.Routes
         private static IResult TestLogPost([FromBody] string id)
         {
             return Results.Ok(id);
+        }
+        
+        private static IResult TestErrorMiddleware()
+        {
+            throw new APIException("Testando endpoint de erro");
         }
     }
 }
