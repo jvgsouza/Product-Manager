@@ -6,18 +6,12 @@ using Usuario.Infra.Repositories;
 
 namespace Usuario.Infra.IoC
 {
-    public static class DependencyResolver
+    public static class InfraDependencyResolver
     {
-        public static void AddDependencyResolver(this IServiceCollection services)
+        public static void AddInfraDependencyResolver(this IServiceCollection services)
         {
-            RegisterServices(services);
             RegisterRepositories(services);
             RegisterDb(services);
-        }
-
-        private static void RegisterServices(IServiceCollection services)
-        {
-            services.AddScoped<IUserService, UserService>();
         }
 
         private static void RegisterRepositories(IServiceCollection services)

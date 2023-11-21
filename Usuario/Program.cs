@@ -1,4 +1,5 @@
 using Usuario.API.Routes;
+using Usuario.Application.IoC;
 using Usuario.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDependencyResolver();
+builder.Services.AddServiceDependencyResolver();
+builder.Services.AddInfraDependencyResolver();
 
 var app = builder.Build();
 
