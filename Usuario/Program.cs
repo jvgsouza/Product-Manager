@@ -22,6 +22,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.WeatherForecastEndpoints();
 
-app.UseMiddleware(typeof(LogMiddleware));
+app.UseMiddleware<LogMiddleware>();
 
 app.Run();
