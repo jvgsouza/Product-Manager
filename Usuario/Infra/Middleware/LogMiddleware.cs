@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using System.Net;
-using System.Net.Http;
-using System.Text;
+﻿using System.Text;
 
 namespace Usuario.Infra.Middleware
 {
