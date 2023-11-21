@@ -1,4 +1,6 @@
-﻿using Usuario.Domain.Services;
+﻿using System.Diagnostics;
+using Usuario.Application.Exceptions;
+using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
 {
@@ -14,12 +16,19 @@ namespace Usuario.API.Routes
             .Produces(404)
             .Produces<int>(200)
             .WithName("GetWeatherForecast");
+
+            group.MapGet("/TestErrorMiddleware", TestErrorMiddleware);
         }
 
         private static IResult GetWeatherForecast(IWeatherForecastService service)
         {
             var weatherForecast = service.GetWeatherForecast();
             return Results.Ok(weatherForecast);
+        }
+
+        private static IResult TestErrorMiddleware()
+        {
+            throw new APIException("Testando endpoint de erro");
         }
     }
 }

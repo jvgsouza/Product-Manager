@@ -1,5 +1,6 @@
+using Usuario.API.Middleware;
 using Usuario.API.Routes;
-using Usuario.Infra.IoC;
+using Usuario.Application.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDependencyResolver();
+builder.Services.AddServiceDependencyResolver();
 
 var app = builder.Build();
 
@@ -20,5 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.WeatherForecastEndpoints();
+
+app.UseMiddleware<ErrorMiddleware>();
 
 app.Run();
