@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
 
-namespace Usuario.Infra.Middleware
+namespace Usuario.API.Middleware
 {
     public class ErrorMiddleware
     {

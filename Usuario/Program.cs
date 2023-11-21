@@ -1,6 +1,6 @@
+using Usuario.API.Middleware;
 using Usuario.API.Routes;
 using Usuario.Application.IoC;
-using Usuario.Infra.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
