@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Usuario.Infra.Middleware
+namespace Usuario.API.Middleware
 {
     public class LogMiddleware
     {
