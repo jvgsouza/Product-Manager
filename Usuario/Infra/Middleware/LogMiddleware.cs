@@ -31,16 +31,16 @@ namespace Usuario.Infra.Middleware
 
             var requestJson = new
             {
-                QueryString = context.Request.QueryString,
-                Query = context.Request.Query,
-                Protocol = context.Request.Protocol,
-                PathBase = context.Request.PathBase,
-                Path = context.Request.Path,
-                Method = context.Request.Method,
-                RouteValues = context.Request.RouteValues,
-                Host = context.Request.Host,
+                context.Request.QueryString,
+                context.Request.Query,
+                context.Request.Protocol,
+                context.Request.PathBase,
+                context.Request.Path,
+                context.Request.Method,
+                context.Request.RouteValues,
+                context.Request.Host,
                 Body = body,
-                Headers = context.Request.Headers
+                context.Request.Headers
             };
 
             await _next(context);
