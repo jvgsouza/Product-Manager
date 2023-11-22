@@ -7,7 +7,7 @@ namespace Usuario.Application.IoC
     {
         public static void AddServiceDependencyResolver(this IServiceCollection services)
         {
-            services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }
