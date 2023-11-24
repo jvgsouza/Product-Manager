@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
+using System.Reflection;
+using System.Text;
 
 namespace Usuario.API.Middleware
 {
@@ -9,9 +13,22 @@ namespace Usuario.API.Middleware
         public LogMiddleware(RequestDelegate next)
         {
             _next = next;
+
+            //ConfigureLogging();
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, ILogger<LogMiddleware> logger)
+        {
+            ConfigureLogging();
+            var log = await GetLogData(context);
+
+            Log.Information(log.ToString()!);
+            Log.CloseAndFlush();
+
+            await _next(context);
+        }
+
+        private async static Task<object> GetLogData(HttpContext context)
         {
             var request = context.Request;
             var body = "";
@@ -36,10 +53,38 @@ namespace Usuario.API.Middleware
                 context.Request.RouteValues,
                 context.Request.Host,
                 Body = body,
-                context.Request.Headers
+                context.Request.Headers,
+                Date = DateTime.UtcNow
             };
 
-            await _next(context);
+            return requestJson;
+        }
+
+        private static void ConfigureLogging()
+        {
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .Build();
+
+            string con = configuration.GetSection("ElasticConfiguration:Uri").Value!;
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                .Enrich.FromLogContext()
+                .Enrich.WithEnvironmentName()
+                .Enrich.WithMachineName()
+                .WriteTo.Console()
+                .WriteTo.Debug()
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(con))
+                {
+                    AutoRegisterTemplate = true,
+                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
+                    IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name!.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
+                })
+                .ReadFrom.Configuration(configuration)
+                .CreateLogger();
         }
     }
 }
