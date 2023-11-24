@@ -7,12 +7,14 @@ namespace Usuario.Application.Validator
     {
         public LoginValidator()
         {
-            RuleFor(login => login.Email).NotEmpty();
-            RuleFor(login => login.Email).Length(12, 255);
-            RuleFor(login => login.Email).EmailAddress();
+            RuleFor(login => login.Email)
+                .NotEmpty().WithMessage("Preencha o campo de email!")
+                .Length(12, 255).WithMessage("O campo email deve conter de 12 a 255 caracteres")
+                .EmailAddress().WithMessage("Informe um email válido!");
 
-            RuleFor(login => login.Password).NotEmpty();
-            RuleFor(login => login.Password).Length(8, 30);
+            RuleFor(login => login.Password)
+                .NotEmpty().WithMessage("Preencha o campo de senha!")
+                .Length(8, 30).WithMessage("O campo senha deve conter de 8 a 30 caracteres");
         }
     }
 }
