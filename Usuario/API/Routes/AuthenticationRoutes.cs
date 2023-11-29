@@ -17,7 +17,7 @@ namespace Usuario.API.Routes
             .Produces<int>(200);
         }
 
-        private static IResult Login(IUserService service, [FromBody] Login login)
+        public static IResult Login(IUserService service, [FromBody] Login login)
         {
             var user = service.Login(login);
             return Results.Ok(user);
