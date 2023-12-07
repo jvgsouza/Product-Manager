@@ -9,7 +9,7 @@ namespace Usuario.Application.Validator
         {
             RuleFor(login => login.Email)
                 .NotEmpty().WithMessage("Preencha o campo de email!")
-                .Length(12, 255).WithMessage("O campo email deve conter de 12 a 255 caracteres")
+                .Length(12, 80).WithMessage("O campo email deve conter de 12 a 80 caracteres")
                 .EmailAddress().WithMessage("Informe um email válido!");
 
             RuleFor(login => login.Password)
