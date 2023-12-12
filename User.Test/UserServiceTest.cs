@@ -1,8 +1,8 @@
-﻿using Moq;
+﻿using Xunit;
+using Moq;
 using Usuario.Application.Exceptions;
 using Usuario.Application.Services;
 using Usuario.Domain.DTOs;
-using Usuario.Domain.Entities;
 using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
 
