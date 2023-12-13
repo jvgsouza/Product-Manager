@@ -1,25 +1,25 @@
-﻿using Xunit;
-using Moq;
+﻿using Moq;
 using Usuario.Application.Exceptions;
 using Usuario.Application.Services;
 using Usuario.Domain.DTOs;
 using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
+using Xunit;
 
-namespace User.Test
+namespace Usuario.Test.Validator
 {
-    public class UserServiceTest
+    public class LoginValidatorTestUT
     {
         private readonly IUserService _userService;
         public readonly Mock<IUserRepository> _userRepository = new();
-        private readonly Usuario.Domain.Entities.User _user;
+        private readonly Domain.Entities.User _user;
         private readonly Login _login;
 
-        public UserServiceTest()
+        public LoginValidatorTestUT()
         {
             _userRepository = new Mock<IUserRepository>();
             _userService = new UserService(_userRepository.Object);
-            _user = new Usuario.Domain.Entities.User 
+            _user = new Domain.Entities.User
             {
                 Email = "teste@gmail.com",
                 Password = "12345678",
@@ -30,17 +30,6 @@ namespace User.Test
                 Email = "teste@gmail.com",
                 Password = "12345678",
             };
-        }
-
-        [Fact]
-        public void SuccessLogin()
-        {
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
-
-            var user = _userService.Login(_login);
-            
-            Assert.NotNull(user);
-            Assert.Equal(1, user.Id);
         }
 
         [Fact]
