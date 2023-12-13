@@ -9,21 +9,21 @@ namespace Usuario.API.Middleware
     public class LogMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger<LogMiddleware> _logger;
 
-        public LogMiddleware(RequestDelegate next)
+        public LogMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
         {
             _next = next;
-
-            //ConfigureLogging();
+            _serviceProvider = serviceProvider;
+            _logger = _serviceProvider.GetService<ILogger<LogMiddleware>>()!;
         }
 
         public async Task Invoke(HttpContext context, ILogger<LogMiddleware> logger)
         {
-            ConfigureLogging();
             var log = await GetLogData(context);
 
-            Log.Information(log.ToString()!);
-            Log.CloseAndFlush();
+            logger.LogInformation(log.ToString()!);
 
             await _next(context);
         }
@@ -58,33 +58,6 @@ namespace Usuario.API.Middleware
             };
 
             return requestJson;
-        }
-
-        private static void ConfigureLogging()
-        {
-            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .Build();
-
-            string con = configuration.GetSection("ElasticConfiguration:Uri").Value!;
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                .Enrich.FromLogContext()
-                .Enrich.WithEnvironmentName()
-                .Enrich.WithMachineName()
-                .WriteTo.Console()
-                .WriteTo.Debug()
-                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(con))
-                {
-                    AutoRegisterTemplate = true,
-                    AutoRegisterTemplateVersion = AutoRegisterTemplateVersion.ESv6,
-                    IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name!.ToLower().Replace(".", "-")}-{environment?.ToLower().Replace(".", "-")}-{DateTime.UtcNow:yyyy-MM}"
-                })
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
         }
     }
 }
