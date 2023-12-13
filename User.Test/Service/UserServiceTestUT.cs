@@ -42,5 +42,16 @@ namespace Usuario.Test.Service
             Assert.NotNull(user);
             Assert.Equal(1, user.Id);
         }
+
+        [Fact]
+        public void FailLogin()
+        {
+            _login.Password = "1234567891";
+            _userRepository.Setup(a => a.Login(_login));
+
+            var user = _userService.Login(_login);
+
+            Assert.Null(user);
+        }
     }
 }
