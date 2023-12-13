@@ -1,30 +1,18 @@
-﻿using Moq;
-using Usuario.Application.Exceptions;
-using Usuario.Application.Services;
+﻿using FluentValidation.TestHelper;
+using Usuario.Application.Validator;
 using Usuario.Domain.DTOs;
-using Usuario.Domain.Repositories;
-using Usuario.Domain.Services;
 using Xunit;
 
 namespace Usuario.Test.Validator
 {
     public class LoginValidatorTestUT
     {
-        private readonly IUserService _userService;
-        public readonly Mock<IUserRepository> _userRepository = new();
-        private readonly Domain.Entities.User _user;
+        private readonly LoginValidator _loginValidator;
         private readonly Login _login;
 
         public LoginValidatorTestUT()
         {
-            _userRepository = new Mock<IUserRepository>();
-            _userService = new UserService(_userRepository.Object);
-            _user = new Domain.Entities.User
-            {
-                Email = "teste@gmail.com",
-                Password = "12345678",
-                Id = 1
-            };
+            _loginValidator = new LoginValidator();
             _login = new Login()
             {
                 Email = "teste@gmail.com",
@@ -36,22 +24,22 @@ namespace Usuario.Test.Validator
         public void EmptyEmail()
         {
             _login.Email = "";
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("Preencha o campo de email!, O campo email deve conter de 12 a 80 caracteres, Informe um email válido!", message);
+            result.ShouldHaveValidationErrorFor(x => x.Email)
+                .WithErrorMessage("Preencha o campo de email!");
         }
 
         [Fact]
         public void InvalidEmail()
         {
             _login.Email = "teste.gmail.com";
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("Informe um email válido!", message);
+            result.ShouldHaveValidationErrorFor(x => x.Email)
+                .WithErrorMessage("Informe um email válido!");
         }
 
         [Theory]
@@ -60,33 +48,33 @@ namespace Usuario.Test.Validator
         public void NumberOfInvalidEmailCharacters(string email)
         {
             _login.Email = email;
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("O campo email deve conter de 12 a 80 caracteres", message);
+            result.ShouldHaveValidationErrorFor(x => x.Email)
+                .WithErrorMessage("O campo email deve conter de 12 a 80 caracteres");
         }
 
         [Fact]
         public void NullEmail()
         {
             _login.Email = null;
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("Preencha o campo de email!", message);
+            result.ShouldHaveValidationErrorFor(x => x.Email)
+                .WithErrorMessage("Preencha o campo de email!");
         }
 
         [Fact]
         public void EmptyPassword()
         {
             _login.Password = "";
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("Preencha o campo de senha!, O campo senha deve conter de 8 a 30 caracteres", message);
+            result.ShouldHaveValidationErrorFor(x => x.Password)
+                .WithErrorMessage("Preencha o campo de senha!");
         }
 
         [Theory]
@@ -95,22 +83,22 @@ namespace Usuario.Test.Validator
         public void NumberOfInvalidPasswordCharacters(string password)
         {
             _login.Password = password;
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("O campo senha deve conter de 8 a 30 caracteres", message);
+            result.ShouldHaveValidationErrorFor(x => x.Password)
+                .WithErrorMessage("O campo senha deve conter de 8 a 30 caracteres");
         }
 
         [Fact]
         public void NullPassword()
         {
             _login.Password = null;
-            _userRepository.Setup(a => a.Login(_login)).Returns(_user);
 
-            string message = Assert.Throws<APIException>(() => _userService.Login(_login)).Message;
+            var result = _loginValidator.TestValidate(_login);
 
-            Assert.Equal("Preencha o campo de senha!", message);
+            result.ShouldHaveValidationErrorFor(x => x.Password)
+                .WithErrorMessage("Preencha o campo de senha!");
         }
     }
 }
