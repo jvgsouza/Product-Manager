@@ -1,4 +1,5 @@
-﻿using FluentValidation.TestHelper;
+﻿using Bogus;
+using FluentValidation.TestHelper;
 using Usuario.Application.Validator;
 using Usuario.Domain.DTOs;
 using Xunit;
@@ -13,11 +14,9 @@ namespace Usuario.Test.Validator
         public LoginValidatorTestUT()
         {
             _loginValidator = new LoginValidator();
-            _login = new Login()
-            {
-                Email = "teste@gmail.com",
-                Password = "12345678",
-            };
+            _login = new Faker<Login>()
+                .RuleFor(p => p.Email, p => p.Person.Email)
+                .RuleFor(p => p.Password, p => p.Internet.Password(8));
         }
 
         [Fact]
