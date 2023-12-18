@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using System.Data.Common;
+using Usuario.Application.Exceptions;
 using Usuario.Domain.DTOs;
 using Usuario.Domain.Entities;
 using Usuario.Domain.Repositories;
