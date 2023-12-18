@@ -25,8 +25,8 @@ namespace Usuario.Infra.Repositories
                 var sql = "Select id, login, password from login where login = @login and password = @password";
 
                 var parameters = new DynamicParameters();
-                parameters.Add("@login", login.login);
-                parameters.Add("@password", login.password);
+                parameters.Add("@login", login.Email);
+                parameters.Add("@password", login.Password);
 
                 var user = connection.QueryFirst<User>(sql, parameters);
 
