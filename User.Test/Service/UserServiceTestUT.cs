@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Moq;
+using Usuario.Application.Exceptions;
 using Usuario.Application.Services;
 using Usuario.Domain.DTOs;
 using Usuario.Domain.Repositories;
@@ -11,7 +12,7 @@ namespace Usuario.Test.Service
     public class UserServiceTestUT
     {
         private readonly IUserService _userService;
-        public readonly Mock<IUserRepository> _userRepository = new();
+        private readonly Mock<IUserRepository> _userRepository;
         private readonly Domain.Entities.User _user;
         private readonly Login _login;
 
@@ -43,12 +44,9 @@ namespace Usuario.Test.Service
         [Fact]
         public void FailLogin()
         {
-            _login.Password = "1234567891";
-            _userRepository.Setup(a => a.Login(_login));
+            _login.Password = "";
 
-            var user = _userService.Login(_login);
-
-            Assert.Null(user);
+            Assert.Throws<APIException>(() => _userService.Login(_login));
         }
     }
 }
