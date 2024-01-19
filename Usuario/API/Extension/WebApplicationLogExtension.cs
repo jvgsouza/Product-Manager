@@ -3,23 +3,11 @@ using Serilog.Sinks.Elasticsearch;
 using Serilog;
 using System.Reflection;
 
-namespace Usuario.API.Middleware
+namespace Usuario.API.Extension
 {
-    public class ConfigureElasticMiddleware
+    public static class WebApplicationLogExtension
     {
-        private readonly RequestDelegate _next;
-        public ConfigureElasticMiddleware(RequestDelegate next)
-        {
-            _next = next;
-            ConfigureLogging();
-        }
-
-        public async Task Invoke(HttpContext context)
-        {
-            await _next(context);
-        }
-
-        private static void ConfigureLogging()
+        public static WebApplication ConfigureLogging(this WebApplication app)
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var configuration = new ConfigurationBuilder()
@@ -44,6 +32,8 @@ namespace Usuario.API.Middleware
                 })
                 .ReadFrom.Configuration(configuration)
                 .CreateLogger();
+
+            return app;
         }
     }
 }

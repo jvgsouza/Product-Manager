@@ -1,7 +1,4 @@
 ﻿using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
-using System.Reflection;
 using System.Text;
 
 namespace Usuario.API.Middleware
@@ -9,21 +6,17 @@ namespace Usuario.API.Middleware
     public class LogMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly ILogger<LogMiddleware> _logger;
 
-        public LogMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
+        public LogMiddleware(RequestDelegate next)
         {
             _next = next;
-            _serviceProvider = serviceProvider;
-            _logger = _serviceProvider.GetService<ILogger<LogMiddleware>>()!;
         }
 
-        public async Task Invoke(HttpContext context, ILogger<LogMiddleware> logger)
+        public async Task Invoke(HttpContext context)
         {
             var log = await GetLogData(context);
 
-            logger.LogInformation(log.ToString()!);
+            Log.Logger.Information(log.ToString()!);
 
             await _next(context);
         }
