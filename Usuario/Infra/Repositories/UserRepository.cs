@@ -1,6 +1,4 @@
-﻿using Dapper;
-using System.Data.Common;
-using Usuario.Domain.DTOs;
+﻿using Usuario.Domain.DTOs;
 using Usuario.Domain.Entities;
 using Usuario.Domain.Repositories;
 using Usuario.Infra.Data;
