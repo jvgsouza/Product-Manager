@@ -1,7 +1,7 @@
-﻿using Usuario.Application.Exceptions;
-using Usuario.Application.Validator;
+﻿using Usuario.Application.Validator;
 using Usuario.Domain.DTOs;
 using Usuario.Domain.Entities;
+using Usuario.Domain.Exceptions;
 using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
 

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.Net;
-using Usuario.Application.Exceptions;
+using Usuario.Domain.Exceptions;
 
 namespace Usuario.API.Middleware
 {

@@ -1,8 +1,8 @@
 ﻿using Bogus;
 using Moq;
-using Usuario.Application.Exceptions;
 using Usuario.Application.Services;
 using Usuario.Domain.DTOs;
+using Usuario.Domain.Exceptions;
 using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
 using Xunit;

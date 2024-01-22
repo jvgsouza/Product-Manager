@@ -1,4 +1,4 @@
-﻿namespace Usuario.Application.Exceptions
+﻿namespace Usuario.Domain.Exceptions
 {
     public class APIException : Exception
     {

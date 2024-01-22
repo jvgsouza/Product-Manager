@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Serilog;
+using System.Text;
 
 namespace Usuario.API.Middleware
 {
@@ -12,6 +13,15 @@ namespace Usuario.API.Middleware
         }
 
         public async Task Invoke(HttpContext context)
+        {
+            var log = await GetLogData(context);
+
+            Log.Logger.Information(log.ToString()!);
+
+            await _next(context);
+        }
+
+        private async static Task<object> GetLogData(HttpContext context)
         {
             var request = context.Request;
             var body = "";
@@ -36,10 +46,11 @@ namespace Usuario.API.Middleware
                 context.Request.RouteValues,
                 context.Request.Host,
                 Body = body,
-                context.Request.Headers
+                context.Request.Headers,
+                Date = DateTime.UtcNow
             };
 
-            await _next(context);
+            return requestJson;
         }
     }
 }
