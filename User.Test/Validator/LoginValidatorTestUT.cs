@@ -57,7 +57,7 @@ namespace Usuario.Test.Validator
         [Fact]
         public void NullEmail()
         {
-            _login.Email = null;
+            _login.Email = string.Empty;
 
             var result = _loginValidator.TestValidate(_login);
 
@@ -92,7 +92,7 @@ namespace Usuario.Test.Validator
         [Fact]
         public void NullPassword()
         {
-            _login.Password = null;
+            _login.Password = string.Empty;
 
             var result = _loginValidator.TestValidate(_login);
 
