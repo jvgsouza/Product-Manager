@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+  db:
+    container_name: db_mysql
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_pwd
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=pa55word
+    ports:
+      - "3306:3306"
+    volumes:
+      - .docker/db/mysql:/var/lib/mysql
+      
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:23.0
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_USERNAME=root
+      - KC_DB_PASSWORD=root_pwd
+      - KC_DB_URL_HOST=db
+      - KC_DB_URL_PORT=3306
+      - KC_DB_SCHEMA=keycloak
+    ports:
+      - 8080:8080
+    command: start-dev
+    depends_on:
+      - db
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.15
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      discovery.type: "single-node"
+      ES_JAVA_OPTS: "-Xms2g -Xmx2g"
+      xpack.monitoring.enabled: "true"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.17.15
+    ports:
+      - "5601:5601"
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+      
+volumes:
+  esdata:

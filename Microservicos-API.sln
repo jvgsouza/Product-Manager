@@ -5,6 +5,12 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Usuario", "Usuario\Usuario.csproj", "{7CC8C19C-C035-4385-A082-3806E8D72D75}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Usuario.Test", "User.Test\Usuario.Test.csproj", "{039C32A4-8F7D-4202-95E3-69411991D0E4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{69C625CA-A1DB-4206-A50D-3408359547FC}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,10 @@ Global
 		{7CC8C19C-C035-4385-A082-3806E8D72D75}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CC8C19C-C035-4385-A082-3806E8D72D75}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CC8C19C-C035-4385-A082-3806E8D72D75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{039C32A4-8F7D-4202-95E3-69411991D0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039C32A4-8F7D-4202-95E3-69411991D0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039C32A4-8F7D-4202-95E3-69411991D0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039C32A4-8F7D-4202-95E3-69411991D0E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
