@@ -1,8 +1,8 @@
 ﻿namespace Usuario.Domain.Exceptions
 {
-    public class APIException : Exception
+    public class ApiException : Exception
     {
-        public APIException(string message) : base(message)
+        public ApiException(string message) : base(message)
         {
         }
     }

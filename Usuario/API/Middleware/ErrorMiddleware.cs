@@ -28,7 +28,7 @@ namespace Usuario.API.Middleware
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             var code = HttpStatusCode.InternalServerError;
-            if(exception is APIException) code = HttpStatusCode.BadRequest;
+            if(exception is ApiException) code = HttpStatusCode.BadRequest;
 
             var result = JsonConvert.SerializeObject(new { error = exception.Message });
 

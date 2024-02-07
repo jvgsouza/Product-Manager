@@ -9,7 +9,7 @@ namespace Usuario.Application.Services
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
         public UserService(IUserRepository userRepository) 
         { 
             _userRepository = userRepository;
@@ -26,7 +26,7 @@ namespace Usuario.Application.Services
             else
             {
                 var errors = string.Join(", ", valid.Errors.Select( x => x.ErrorMessage));
-                throw new APIException(errors!);
+                throw new ApiException(errors!);
             }
         }
     }
