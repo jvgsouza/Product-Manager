@@ -26,7 +26,7 @@ namespace Usuario.Application.Services
             else
             {
                 var errors = string.Join(", ", valid.Errors.Select( x => x.ErrorMessage));
-                throw new APIException(errors!);
+                throw new ApiException(errors!);
             }
         }
     }

@@ -46,7 +46,7 @@ namespace Usuario.Test.Service
         {
             _login.Password = "";
 
-            Assert.Throws<APIException>(() => _userService.Login(_login));
+            Assert.Throws<ApiException>(() => _userService.Login(_login));
         }
     }
 }
