@@ -1,10 +1,12 @@
-﻿using Usuario.Domain.DTOs;
+﻿using System.Diagnostics.CodeAnalysis;
+using Usuario.Domain.DTOs;
 using Usuario.Domain.Entities;
 using Usuario.Domain.Repositories;
 using Usuario.Infra.Data;
 
 namespace Usuario.Infra.Repositories
 {
+    [ExcludeFromCodeCoverage]
     public class UserRepository : IUserRepository
     {
         private readonly IDbConnection _connection;
