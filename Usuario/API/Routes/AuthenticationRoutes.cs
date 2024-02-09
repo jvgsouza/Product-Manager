@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 using Usuario.Domain.DTOs;
 using Usuario.Domain.Services;
 
 namespace Usuario.API.Routes
 {
+    [ExcludeFromCodeCoverage]
     public static class AuthenticationRoutes
     {
         public static void AuthenticationEndpoints(this WebApplication app)

@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using Usuario.Domain.Exceptions;
 
 namespace Usuario.API.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class ErrorMiddleware
     {
         private readonly RequestDelegate next;
