@@ -1,9 +1,9 @@
-﻿
-
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Usuario.Infra.Data
 {
+    [ExcludeFromCodeCoverage]
     public class DatabaseConnection : IDbConnection
     {
         public MySqlConnection getConnection()

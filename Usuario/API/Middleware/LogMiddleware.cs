@@ -1,8 +1,10 @@
 ﻿using Serilog;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace Usuario.API.Middleware
 {
+    [ExcludeFromCodeCoverage]
     public class LogMiddleware
     {
         private readonly RequestDelegate _next;

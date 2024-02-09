@@ -2,9 +2,11 @@
 using Serilog.Sinks.Elasticsearch;
 using Serilog;
 using System.Reflection;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Usuario.API.Extension
 {
+    [ExcludeFromCodeCoverage]
     public static class WebApplicationLogExtension
     {
         public static WebApplication ConfigureLogging(this WebApplication app)

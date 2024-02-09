@@ -1,4 +1,5 @@
-﻿using Usuario.Application.Services;
+﻿using System.Diagnostics.CodeAnalysis;
+using Usuario.Application.Services;
 using Usuario.Domain.Repositories;
 using Usuario.Domain.Services;
 using Usuario.Infra.Data;
@@ -6,6 +7,7 @@ using Usuario.Infra.Repositories;
 
 namespace Usuario.Infra.IoC
 {
+    [ExcludeFromCodeCoverage]
     public static class InfraDependencyResolver
     {
         public static void AddInfraDependencyResolver(this IServiceCollection services)
