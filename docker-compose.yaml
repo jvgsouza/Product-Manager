@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - .docker/db/mysql:/var/lib/mysql
+      - mysqldata:/var/lib/mysql
       
   keycloak:
     container_name: keycloak
@@ -53,3 +53,4 @@ services:
       
 volumes:
   esdata:
+  mysqldata:
