@@ -31,3 +31,4 @@ app.UseMiddleware<ErrorMiddleware>();
 
 app.Run();
 
+public partial class Program { }
